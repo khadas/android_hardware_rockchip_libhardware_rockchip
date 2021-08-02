@@ -3,6 +3,20 @@
 
 __BEGIN_DECLS
 
+#define HWC_BLENDING_DIM            0x0805
+#define HWC_BLENDING_CLEAR_HOLE     0x0806
+#define HWC_Layer_DEBUG
+#define LayerNameLength             60
+
+enum {
+    HWC_TOWIN0 = 6,
+    HWC_TOWIN1 = 7,
+    HWC_LCDC = 8,
+    HWC_NODRAW = 9,
+    HWC_MIX = 10,
+    HWC_MIX_V2 = 11
+};
+
 typedef enum {
 
     /*
