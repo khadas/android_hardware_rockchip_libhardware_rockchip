@@ -1,6 +1,8 @@
 #ifndef LIBHARDWARE_GRALLOC_ROCKCHIP_H
 #define LIBHARDWARE_GRALLOC_ROCKCHIP_H
 
+#include <hardware/gralloc.h>
+
 __BEGIN_DECLS
 
 /**
@@ -98,7 +100,6 @@ typedef struct rk_ashmem_t
 
 /*---------------------------------------------------------------------------*/
 
-#define GRALLOC_USAGE_PRIVATE_3			(1ULL << 31)
 /* Gralloc 4.0 中, RK 扩展的 usage flag bit,
  * 表征 "调用 alloc() 的 client 要求分配 底层 pages 是物理连续的 buffer".
  *
@@ -106,6 +107,8 @@ typedef struct rk_ashmem_t
  *	原始定义在 hardware/rockchip/libgralloc/bifrost 下的某个头文件中.
  *	但该文件的路径 可能随 DDK 升级而改变, 且外部要 include 该头文件困难.
  *	这里的定义 作为 public 定义, 提供给 其他 RK vendor 模块使用.
+
+ * "GRALLOC_USAGE_PRIVATE_3" : 定义在 hardware/libhardware/include/hardware/gralloc.h 中.
  */
 #define RK_GRALLOC_USAGE_PHY_CONTIG_BUFFER	GRALLOC_USAGE_PRIVATE_3
 
