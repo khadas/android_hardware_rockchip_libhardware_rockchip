@@ -38,23 +38,34 @@ typedef enum {
      *  is left unmodified when read or written.
      *
      */
-    HAL_PIXEL_FORMAT_sRGB_A_8888        = 0xC,
-    HAL_PIXEL_FORMAT_sRGB_X_8888        = 0xD,
 
-    HAL_PIXEL_FORMAT_YCrCb_NV12         = 0x15, // YUY2
-    HAL_PIXEL_FORMAT_YCrCb_NV12_VIDEO   = 0x16,
-    HAL_PIXEL_FORMAT_YCrCb_NV12_10      = 0x17, // YUY2_1obit
-    HAL_PIXEL_FORMAT_YCbCr_422_SP_10    = 0x18, //
-    HAL_PIXEL_FORMAT_YCrCb_420_SP_10    = 0x19, //
+    /*
+    这里定义 rk_private_hal_formats.
+    它们的具体 value "不能" 和框架定义的 hal_formats 的 value 重叠.
 
-    HAL_PIXEL_FORMAT_YUV420_8BIT_I      = 0x1A, // 420I 8bit
-    HAL_PIXEL_FORMAT_YUV420_10BIT_I     = 0x1B, // 420I 10bit
-    HAL_PIXEL_FORMAT_Y210               = 0x1C, // 422I 10bit
+    框架定义的 hal_formats 被定义在 system/corelibsystem/include/system/ 下的如下文件中:
+    graphics-base-v1.0.h
+    graphics-base-v1.1.h
+    graphics-base-v1.2.h
+    graphics-sw.h
+    */
 
-    HAL_PIXEL_FORMAT_BPP_1              = 0x30,
-    HAL_PIXEL_FORMAT_BPP_2              = 0x31,
-    HAL_PIXEL_FORMAT_BPP_4              = 0x32,
-    HAL_PIXEL_FORMAT_BPP_8              = 0x33,
+    HAL_PIXEL_FORMAT_sRGB_A_8888        = 0xC,  // 12
+    HAL_PIXEL_FORMAT_sRGB_X_8888        = 0xD,  // 13
+
+    HAL_PIXEL_FORMAT_YCrCb_NV12         = 0x15, // YUY2, 21
+    HAL_PIXEL_FORMAT_YCrCb_NV12_10      = 0x17, // YUY2_1obit, 23
+    HAL_PIXEL_FORMAT_YCbCr_422_SP_10    = 0x18, // 24
+    HAL_PIXEL_FORMAT_YCrCb_420_SP_10    = 0x19, // 25
+
+    HAL_PIXEL_FORMAT_YUV420_8BIT_I      = 0x1A, // 420I 8bit, 26
+    HAL_PIXEL_FORMAT_YUV420_10BIT_I     = 0x1B, // 420I 10bit, 27
+    HAL_PIXEL_FORMAT_Y210               = 0x1C, // 422I 10bit, 28
+
+    HAL_PIXEL_FORMAT_BPP_1              = 0x30, // 48
+    HAL_PIXEL_FORMAT_BPP_2              = 0x31, // 49
+    HAL_PIXEL_FORMAT_BPP_4              = 0x32, // 50
+    HAL_PIXEL_FORMAT_BPP_8              = 0x33, // 51
 } rk_pixel_format_t;
 
 __END_DECLS
