@@ -117,6 +117,11 @@ typedef struct rk_ashmem_t
 */
 #define RK_GRALLOC_USAGE_WITHIN_4G		GRALLOC_USAGE_PRIVATE_11
 
+#define GRALLOC_USAGE_PRIVATE_1			(1ULL << 29)
+/* Gralloc 4.0 中, 表征 "调用 alloc() 的 client 要求分配的 buffer 不是 AFBC 格式".
+*/
+#define MALI_GRALLOC_USAGE_NO_AFBC		GRALLOC_USAGE_PRIVATE_1
+
 /*---------------------------------------------------------------------------*/
 __END_DECLS
 
