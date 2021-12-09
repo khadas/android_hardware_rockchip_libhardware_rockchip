@@ -43,7 +43,7 @@ typedef enum {
     这里定义 rk_private_hal_formats.
     它们的具体 value "不能" 和框架定义的 hal_formats 的 value 重叠.
 
-    框架定义的 hal_formats 被定义在 system/corelibsystem/include/system/ 下的如下文件中:
+    框架定义的 hal_formats 被定义在 system/core/libsystem/include/system/ 下的如下文件中:
     graphics-base-v1.0.h
     graphics-base-v1.1.h
     graphics-base-v1.2.h
@@ -54,6 +54,8 @@ typedef enum {
     HAL_PIXEL_FORMAT_sRGB_X_8888        = 0xD,  // 13
 
     HAL_PIXEL_FORMAT_YCrCb_NV12         = 0x15, // YUY2, 21
+    HAL_PIXEL_FORMAT_YCrCb_NV12_VIDEO   = 0x16, // 22, 和 HAL_PIXEL_FORMAT_RGBA_FP16 的 value 重叠,
+                                                // 但目前 HAL_PIXEL_FORMAT_YCrCb_NV12_VIDEO 已经不被实际使用.
     HAL_PIXEL_FORMAT_YCrCb_NV12_10      = 0x17, // YUY2_1obit, 23
     HAL_PIXEL_FORMAT_YCbCr_422_SP_10    = 0x18, // 24
     HAL_PIXEL_FORMAT_YCrCb_420_SP_10    = 0x19, // 25
