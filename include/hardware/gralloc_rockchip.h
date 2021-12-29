@@ -122,6 +122,12 @@ typedef struct rk_ashmem_t
 */
 #define MALI_GRALLOC_USAGE_NO_AFBC		GRALLOC_USAGE_PRIVATE_1
 
+#define GRALLOC_USAGE_PRIVATE_2                 (1ULL << 30)
+/* 表征 "当前 调用 alloc() 的 client 通过 width 指定了其预期的 buffer stride",
+ * 即要求 gralloc 遵循 rk_implicit_alloc_semantic (即 满足 implicit_requirement_for_rk_gralloc_allocate).
+ */
+#define RK_GRALLOC_USAGE_SPECIFY_STRIDE         GRALLOC_USAGE_PRIVATE_2
+
 /*---------------------------------------------------------------------------*/
 __END_DECLS
 
