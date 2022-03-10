@@ -125,12 +125,33 @@ enum {
  *	原始定义在 hardware/rockchip/libgralloc/bifrost 下的某个头文件中.
  *	但该文件的路径 可能随 DDK 升级而改变, 且外部要 include 该头文件困难.
  *	这里的定义 作为 public 定义, 提供给 其他 RK vendor 模块使用.
-
- * "GRALLOC_USAGE_PRIVATE_3" : 定义在 hardware/libhardware/include/hardware/gralloc.h 中.
  */
+
+// #define GRALLOC_USAGE_PRIVATE_0         (1ULL << 28)
+// #define GRALLOC_USAGE_PRIVATE_1         (1ULL << 29)
+// #define GRALLOC_USAGE_PRIVATE_2         (1ULL << 30)
+// #define GRALLOC_USAGE_PRIVATE_3         (1ULL << 31)
+        // 已经定义在 hardware/libhardware/include/hardware/gralloc.h 中.
+
+#define GRALLOC_USAGE_PRIVATE_4         (1ULL << 63)
+#define GRALLOC_USAGE_PRIVATE_5         (1ULL << 62)
+#define GRALLOC_USAGE_PRIVATE_6         (1ULL << 61)
+#define GRALLOC_USAGE_PRIVATE_7         (1ULL << 60)
+#define GRALLOC_USAGE_PRIVATE_8         (1ULL << 59)
+#define GRALLOC_USAGE_PRIVATE_9         (1ULL << 58)
+#define GRALLOC_USAGE_PRIVATE_10        (1ULL << 57)
+#define GRALLOC_USAGE_PRIVATE_11        (1ULL << 56)
+#define GRALLOC_USAGE_PRIVATE_12        (1ULL << 55)
+#define GRALLOC_USAGE_PRIVATE_13        (1ULL << 54)
+#define GRALLOC_USAGE_PRIVATE_14        (1ULL << 53)
+#define GRALLOC_USAGE_PRIVATE_15        (1ULL << 52)
+#define GRALLOC_USAGE_PRIVATE_16        (1ULL << 51)
+#define GRALLOC_USAGE_PRIVATE_17        (1ULL << 50)
+#define GRALLOC_USAGE_PRIVATE_18        (1ULL << 49)
+#define GRALLOC_USAGE_PRIVATE_19        (1ULL << 48)
+
 #define RK_GRALLOC_USAGE_PHY_CONTIG_BUFFER	GRALLOC_USAGE_PRIVATE_3
 
-#define GRALLOC_USAGE_PRIVATE_11		(1ULL << 56)
 /* Gralloc 4.0 中, 表征 "调用 alloc() 的 client 要求分配的 buffer 的所有物理 page 的地址都在 4G 以内".
 */
 #define RK_GRALLOC_USAGE_WITHIN_4G		GRALLOC_USAGE_PRIVATE_11
@@ -141,18 +162,15 @@ enum {
  */
 #define RK_GRALLOC_USAGE_RGA_ACCESS     RK_GRALLOC_USAGE_WITHIN_4G
 
-#define GRALLOC_USAGE_PRIVATE_1			(1ULL << 29)
 /* Gralloc 4.0 中, 表征 "调用 alloc() 的 client 要求分配的 buffer 不是 AFBC 格式".
 */
 #define MALI_GRALLOC_USAGE_NO_AFBC		GRALLOC_USAGE_PRIVATE_1
 
-#define GRALLOC_USAGE_PRIVATE_2                 (1ULL << 30)
 /* 表征 "当前 调用 alloc() 的 client 通过 width 指定了其预期的 buffer stride",
  * 即要求 gralloc 遵循 rk_implicit_alloc_semantic (即 满足 implicit_requirement_for_rk_gralloc_allocate).
  */
 #define RK_GRALLOC_USAGE_SPECIFY_STRIDE         GRALLOC_USAGE_PRIVATE_2
 
-#define GRALLOC_USAGE_PRIVATE_10                (1ULL << 57)
 /* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 16 对齐.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  *
@@ -160,23 +178,33 @@ enum {
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_16        GRALLOC_USAGE_PRIVATE_10
 
-#define GRALLOC_USAGE_PRIVATE_9                 (1ULL << 58)
 /* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 128 对齐.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_128       GRALLOC_USAGE_PRIVATE_9
 
-#define GRALLOC_USAGE_PRIVATE_8                 (1ULL << 59)
 /* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 256 的奇数倍.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_256_ODD_TIMES     GRALLOC_USAGE_PRIVATE_8
 
-#define GRALLOC_USAGE_PRIVATE_7                 (1ULL << 60)
 /* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 64 对齐.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_64        GRALLOC_USAGE_PRIVATE_7
+
+/* YUV-only. */
+#define MALI_GRALLOC_USAGE_YUV_COLOR_SPACE_DEFAULT      (0)
+#define MALI_GRALLOC_USAGE_YUV_COLOR_SPACE_BT601        GRALLOC_USAGE_PRIVATE_18
+#define MALI_GRALLOC_USAGE_YUV_COLOR_SPACE_BT709        GRALLOC_USAGE_PRIVATE_19
+#define MALI_GRALLOC_USAGE_YUV_COLOR_SPACE_BT2020       (GRALLOC_USAGE_PRIVATE_18 | GRALLOC_USAGE_PRIVATE_19)
+#define MALI_GRALLOC_USAGE_YUV_COLOR_SPACE_MASK         MALI_GRALLOC_USAGE_YUV_COLOR_SPACE_BT2020
+
+#define MALI_GRALLOC_USAGE_RANGE_DEFAULT        (0)
+#define MALI_GRALLOC_USAGE_RANGE_NARROW         GRALLOC_USAGE_PRIVATE_16
+#define MALI_GRALLOC_USAGE_RANGE_WIDE           GRALLOC_USAGE_PRIVATE_17
+#define MALI_GRALLOC_USAGE_RANGE_MASK           (GRALLOC_USAGE_PRIVATE_16 | GRALLOC_USAGE_PRIVATE_17)
+
 
 /*---------------------------------------------------------------------------*/
 __END_DECLS
