@@ -129,25 +129,27 @@ typedef struct rk_ashmem_t
 #define RK_GRALLOC_USAGE_SPECIFY_STRIDE         GRALLOC_USAGE_PRIVATE_2
 
 #define GRALLOC_USAGE_PRIVATE_10                (1ULL << 57)
-/* 表征 client 要求 buffer 的 pixel_stride 是 16 对齐.
+/* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 16 对齐.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
+ *
+ * 对 HAL_PIXEL_FORMAT_YCrCb_NV12, plane_0 的 byte_stride 就是 pixel_stride.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_16        GRALLOC_USAGE_PRIVATE_10
 
 #define GRALLOC_USAGE_PRIVATE_9                 (1ULL << 58)
-/* 表征 client 要求 buffer 的 pixel_stride 是 128 对齐.
+/* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 128 对齐.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_128       GRALLOC_USAGE_PRIVATE_9
 
 #define GRALLOC_USAGE_PRIVATE_8                 (1ULL << 59)
-/* 表征 client 要求 buffer 的 pixel_stride 是 256 的奇数倍.
+/* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 256 的奇数倍.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_256_ODD_TIMES     GRALLOC_USAGE_PRIVATE_8
 
 #define GRALLOC_USAGE_PRIVATE_7                 (1ULL << 60)
-/* 表征 client 要求 buffer 的 pixel_stride 是 64 对齐.
+/* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 64 对齐.
  * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
  */
 #define RK_GRALLOC_USAGE_STRIDE_ALIGN_64        GRALLOC_USAGE_PRIVATE_7
