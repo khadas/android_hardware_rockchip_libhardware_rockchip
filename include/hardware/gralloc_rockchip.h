@@ -98,6 +98,24 @@ typedef struct rk_ashmem_t
     char LayerName[maxLayerNameLength + 1];
 } rk_ashmem_t;
 
+/* RK 对 Gralloc 0.3 扩展的 usage flag bits. */
+enum {
+    /* buffer may be used as a cursor */
+    GRALLOC_USAGE_ROT_MASK              = 0x0F000000,
+
+    GRALLOC_USAGE_TO_USE_SINGLE_BUFFER  = 0x0B000000,
+
+    /* mali p010 format */
+    GRALLOC_USAGE_TO_USE_ARM_P010       = 0x0A000000,
+    /* would like to use a fbdc(afbc) format. */
+    GRALLOC_USAGE_TO_USE_FBDC_FMT       = 0x09000000,
+    /* use Physically Continuous memory */
+    GRALLOC_USAGE_TO_USE_PHY_CONT	= 0x08000000,
+    /* replacement of GRALLOC_USAGE_EXTERNAL_DISP,
+     * which is treated as invalid by frameworks. */
+    GRALLOC_USAGE__RK_EXT__EXTERNAL_DISP= 0x07000000U,
+};
+
 /*---------------------------------------------------------------------------*/
 
 /* Gralloc 4.0 中, RK 扩展的 usage flag bit,
