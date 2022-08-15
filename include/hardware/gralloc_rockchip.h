@@ -116,6 +116,12 @@ typedef struct rk_ashmem_t
 /* Gralloc 4.0 中, 表征 "调用 alloc() 的 client 要求分配的 buffer 的所有物理 page 的地址都在 4G 以内".
 */
 #define RK_GRALLOC_USAGE_WITHIN_4G		GRALLOC_USAGE_PRIVATE_11
+/* To indicate the buffer to allocate would be accessed by RGA.
+ *
+ * For the limitation of IP implementation, RGA2 could only access buffers with physical address within 4G.
+ * There is no such limitation in RGA3.
+ */
+#define RK_GRALLOC_USAGE_RGA_ACCESS     RK_GRALLOC_USAGE_WITHIN_4G
 
 #define GRALLOC_USAGE_PRIVATE_1			(1ULL << 29)
 /* Gralloc 4.0 中, 表征 "调用 alloc() 的 client 要求分配的 buffer 不是 AFBC 格式".
