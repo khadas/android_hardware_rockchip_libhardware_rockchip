@@ -29,6 +29,40 @@ enum {
   /* perform(const struct gralloc_module_t *mod,
    *     int op,
    *     buffer_handle_t buffer,
+   *     int64_t offset);
+   */
+  GRALLOC_MODULE_PERFORM_SET_OFFSET_OF_DYNAMIC_HDR_METADATA
+                                                   = 0x08100017,
+  /* perform(const struct gralloc_module_t *mod,
+   *     int op,
+   *     buffer_handle_t buffer,
+   *     int64_t* offset);
+   */
+  GRALLOC_MODULE_PERFORM_GET_OFFSET_OF_DYNAMIC_HDR_METADATA
+                                                  = 0x08100018,
+
+  /* perform(const struct gralloc_module_t *mod,
+   *     int op,
+   *     buffer_handle_t buffer,
+   *     metadata_for_rkvdec_scaling_t** metadata);
+   * 将 'buffer' 中的 metadata_for_rkvdec_scaling_t 实例, lock 到当前进程的虚拟地址空间, 并返回对应的地址.
+   * 返回的地址被存储在 *metadata 中.
+   * 之后, client 可以使用该地址对该 metadata_for_rkvdec_scaling_t 实例进行读写.
+   * 读写完成后, client "必须" 对 'buffer' 调用 perform(..., GRALLOC_MODULE_PERFORM_UNLOCK_RKVDEC_SCALING_METADATA).
+   */
+  GRALLOC_MODULE_PERFORM_LOCK_RKVDEC_SCALING_METADATA   = 0x08100019,
+  GRALLOC_MODULE_PERFORM_UNLOCK_RKVDEC_SCALING_METADATA = 0x0810001A,
+
+  /* perform(const struct gralloc_module_t *mod,
+   *     int op,
+   *     buffer_handle_t buffer,
+   *     uint64_t* buffer_id);
+   */
+  GRALLOC_MODULE_PERFORM_GET_BUFFER_ID= 0x0810001B,
+
+  /* perform(const struct gralloc_module_t *mod,
+   *     int op,
+   *     buffer_handle_t buffer,
    *     int *usage);
    */
   GRALLOC_MODULE_PERFORM_GET_USAGE = 0x0feeff03,
@@ -96,13 +130,64 @@ typedef struct rk_ashmem_t
     int32_t alreadyStereo;
     int32_t displayStereo;
     char LayerName[maxLayerNameLength + 1];
+
+    /* dynamic_hdr_metadata(_buf) 在图像数据 buffer 中的 offset, 以 byte 为单位. */
+    int64_t offset_of_dynamic_hdr_metadata;
 } rk_ashmem_t;
 
+
 #ifdef USE_GRALLOC_0
+typedef struct metadata_for_rkvdec_scaling_t
+{
+    uint64_t version;
+    // mask
+    uint64_t requestMask;
+    uint64_t replyMask;
+
+    // buffer info
+    uint32_t width;   // pixel_w
+    uint32_t height;  // pixel_h
+    uint32_t format;  // drm_fourcc
+    uint64_t modifier;// modifier
+    uint32_t usage;   // usage
+    uint32_t pixel_stride; // pixel_stride
+
+    // image info
+    uint32_t srcLeft;
+    uint32_t srcTop;
+    uint32_t srcRight;
+    uint32_t srcBottom;
+
+    // buffer layout
+    uint32_t layer_cnt;
+    uint32_t fd[4];
+    uint32_t offset[4];
+    uint32_t byteStride[4];
+} metadata_for_rkvdec_scaling_t;
+
 /* RK 对 Gralloc 0.3 扩展的 usage flag bits. */
 enum {
+    /* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 16 对齐.
+     * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
+     *
+     * 对 HAL_PIXEL_FORMAT_YCrCb_NV12, plane_0 的 byte_stride 就是 pixel_stride.
+     */
+    RK_GRALLOC_USAGE_STRIDE_ALIGN_16	= 0x00080000U,
+    RK_GRALLOC_USAGE_STRIDE_ALIGN_64    = 0x00400000U,
+    RK_GRALLOC_USAGE_STRIDE_ALIGN_128   = 0x00800000U,
+    /* 表征 client 要求 buffer (的 plane_0) 的 byte_stride 是 256 的奇数倍.
+     * 仅 配合 HAL_PIXEL_FORMAT_YCrCb_NV12 等特定 rk_video_formats 使用.
+     */
+    RK_GRALLOC_USAGE_STRIDE_ALIGN_256_ODD_TIMES
+                                        = 0x00080000U | 0x00400000U,
+    RK_GRALLOC_USAGE_STRIDE_ALIGN_MASK  = 0x00080000U | 0x00400000U | 0x00800000U,
+
     /* buffer may be used as a cursor */
     GRALLOC_USAGE_ROT_MASK              = 0x0F000000,
+    /* the buffer would be used in rkvdec_scaling */
+    GRALLOC_USAGE_RKVDEC_SCALING        = 0x01000000U,
+    /* the buffer would be used for dynamic HDR (such as Vivid, ...) */
+    GRALLOC_USAGE_DYNAMIC_HDR           = 0x02000000U,
     /* mali p010 format */
     GRALLOC_USAGE_TO_USE_ARM_P010       = 0x0A000000,
     /* use Physically Continuous memory */
