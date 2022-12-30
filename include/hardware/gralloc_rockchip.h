@@ -98,6 +98,7 @@ typedef struct rk_ashmem_t
     char LayerName[maxLayerNameLength + 1];
 } rk_ashmem_t;
 
+#ifdef USE_GRALLOC_0
 /* RK 对 Gralloc 0.3 扩展的 usage flag bits. */
 enum {
     /* buffer may be used as a cursor */
@@ -115,9 +116,7 @@ enum {
      * which is treated as invalid by frameworks. */
     GRALLOC_USAGE__RK_EXT__EXTERNAL_DISP= 0x07000000U,
 };
-
-/*---------------------------------------------------------------------------*/
-
+#else
 /* Gralloc 4.0 中, RK 扩展的 usage flag bit,
  * 表征 "调用 alloc() 的 client 要求分配 底层 pages 是物理连续的 buffer".
  *
@@ -212,7 +211,7 @@ enum {
 #define MALI_GRALLOC_USAGE_RANGE_NARROW         GRALLOC_USAGE_PRIVATE_16
 #define MALI_GRALLOC_USAGE_RANGE_WIDE           GRALLOC_USAGE_PRIVATE_17
 #define MALI_GRALLOC_USAGE_RANGE_MASK           (GRALLOC_USAGE_PRIVATE_16 | GRALLOC_USAGE_PRIVATE_17)
-
+#endif
 
 /*---------------------------------------------------------------------------*/
 __END_DECLS
