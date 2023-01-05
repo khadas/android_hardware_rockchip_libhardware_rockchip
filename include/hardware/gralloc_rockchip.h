@@ -188,6 +188,9 @@ enum {
     GRALLOC_USAGE_RKVDEC_SCALING        = 0x01000000U,
     /* the buffer would be used for dynamic HDR (such as Vivid, ...) */
     GRALLOC_USAGE_DYNAMIC_HDR           = 0x02000000U,
+    /* replacement of GRALLOC_USAGE_EXTERNAL_DISP,
+     * which is treated as invalid by frameworks. */
+    GRALLOC_USAGE__RK_EXT__EXTERNAL_DISP= 0x04000000U,
     /* mali p010 format */
     GRALLOC_USAGE_TO_USE_ARM_P010       = 0x0A000000,
     /* use Physically Continuous memory */
