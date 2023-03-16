@@ -64,6 +64,7 @@ typedef enum {
     HAL_PIXEL_FORMAT_YUV420_10BIT_I     = 0x1B, // 420I 10bit, 27
     HAL_PIXEL_FORMAT_Y210               = 0x1C, // 422I 10bit, 28
     HAL_PIXEL_FORMAT_BGR_888            = 29,
+    HAL_PIXEL_FORMAT_NV30               = 30,
 
     HAL_PIXEL_FORMAT_BPP_1              = 0x30, // 48
     HAL_PIXEL_FORMAT_BPP_2              = 0x31, // 49
